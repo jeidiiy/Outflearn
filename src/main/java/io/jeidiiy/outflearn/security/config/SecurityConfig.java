@@ -1,7 +1,10 @@
 package io.jeidiiy.outflearn.security.config;
 
+import static io.jeidiiy.outflearn.api.Endpoint.Api.*;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +35,16 @@ public class SecurityConfig {
 		http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
 		http.apply(ajaxLoginConfigurer());
+
+		http.logout(logout -> {
+			logout.logoutUrl(LOGOUT);
+			logout.clearAuthentication(true);
+			logout.invalidateHttpSession(true);
+			logout.deleteCookies("JSESSIONID");
+			logout.logoutSuccessHandler(
+				(request, response, authentication) -> response.setStatus(HttpStatus.NO_CONTENT.value())
+			);
+		});
 
 		return http.build();
 	}
