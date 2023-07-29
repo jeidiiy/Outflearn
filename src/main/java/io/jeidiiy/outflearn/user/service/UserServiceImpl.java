@@ -9,11 +9,13 @@ import io.jeidiiy.outflearn.user.controller.port.UserService;
 import io.jeidiiy.outflearn.user.domain.User;
 import io.jeidiiy.outflearn.user.domain.UserCreate;
 import io.jeidiiy.outflearn.user.service.port.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Transactional
 @Service
 @RequiredArgsConstructor
+@Builder
 public class UserServiceImpl implements UserService {
 
 	private final VerificationService verificationService;
