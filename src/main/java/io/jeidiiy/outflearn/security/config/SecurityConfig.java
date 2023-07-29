@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -11,9 +12,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import io.jeidiiy.outflearn.security.login.ajax.configure.AjaxLoginConfigurer;
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+	private final UserDetailsService userDetailsService;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -24,7 +31,16 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(requestMatcher -> requestMatcher.anyRequest().permitAll());
 		http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
+		http.apply(ajaxLoginConfigurer());
+
 		return http.build();
+	}
+
+	public AjaxLoginConfigurer<HttpSecurity> ajaxLoginConfigurer() {
+		AjaxLoginConfigurer<HttpSecurity> ajaxLoginConfigurer = AjaxLoginConfigurer.create();
+		ajaxLoginConfigurer.setPasswordEncoder(passwordEncoder());
+		ajaxLoginConfigurer.setUserDetailsService(userDetailsService);
+		return ajaxLoginConfigurer;
 	}
 
 	@Bean

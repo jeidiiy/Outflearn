@@ -3,6 +3,7 @@ package io.jeidiiy.outflearn.mock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import io.jeidiiy.outflearn.common.exception.ResourceNotFoundException;
 import io.jeidiiy.outflearn.user.domain.User;
@@ -14,6 +15,13 @@ public class FakeUserRepository implements UserRepository {
 
 	private static boolean isNewUser(User user) {
 		return user.getId() == null || user.getId() == 0L;
+	}
+
+	@Override
+	public Optional<User> findByEmail(String email) {
+		return store.stream()
+			.filter(user -> user.getEmail().equals(email))
+			.findFirst();
 	}
 
 	@Override
