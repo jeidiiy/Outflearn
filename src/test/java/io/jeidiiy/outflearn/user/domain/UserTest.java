@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.user;
+package io.jeidiiy.outflearn.user.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -7,11 +7,8 @@ import org.junit.jupiter.api.Test;
 import io.jeidiiy.outflearn.common.exception.VerificationCodeNotMatchedException;
 import io.jeidiiy.outflearn.mock.TestPasswordEncoder;
 import io.jeidiiy.outflearn.mock.TestUuidHolder;
-import io.jeidiiy.outflearn.user.domain.User;
-import io.jeidiiy.outflearn.user.domain.UserCreate;
-import io.jeidiiy.outflearn.user.domain.UserStatus;
 
-public class UserTests {
+public class UserTest {
 
 	@Test
 	void UserCreate_객체로_생성할_수_있다() {
