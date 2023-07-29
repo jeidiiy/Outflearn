@@ -12,7 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import io.jeidiiy.outflearn.security.login.ajax.AjaxLoginConfigurer;
+import io.jeidiiy.outflearn.security.login.ajax.configure.AjaxLoginConfigurer;
 import lombok.RequiredArgsConstructor;
 
 @Configuration

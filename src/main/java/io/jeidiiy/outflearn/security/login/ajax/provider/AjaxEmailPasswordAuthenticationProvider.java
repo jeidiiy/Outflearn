@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.provider;
 
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
+import io.jeidiiy.outflearn.security.login.ajax.domain.AjaxEmailPasswordAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

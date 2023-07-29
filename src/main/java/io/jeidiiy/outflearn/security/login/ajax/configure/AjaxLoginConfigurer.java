@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.configure;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -11,6 +11,10 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import io.jeidiiy.outflearn.security.login.ajax.filter.AjaxEmailPasswordAuthenticationFilter;
+import io.jeidiiy.outflearn.security.login.ajax.handler.AjaxAuthenticationFailureHandler;
+import io.jeidiiy.outflearn.security.login.ajax.handler.AjaxAuthenticationSuccessHandler;
+import io.jeidiiy.outflearn.security.login.ajax.provider.AjaxEmailPasswordAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

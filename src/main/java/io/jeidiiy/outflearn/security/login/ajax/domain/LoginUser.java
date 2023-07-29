@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.domain;
 
 import java.util.Collection;
 

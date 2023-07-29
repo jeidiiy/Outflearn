@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.filter;
 
 import java.io.IOException;
 
@@ -14,6 +14,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jeidiiy.outflearn.api.Endpoint;
+import io.jeidiiy.outflearn.security.login.ajax.domain.AjaxEmailPasswordAuthenticationToken;
+import io.jeidiiy.outflearn.security.login.ajax.domain.EmailLoginRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

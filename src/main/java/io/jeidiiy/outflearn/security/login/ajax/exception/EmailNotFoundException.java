@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

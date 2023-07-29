@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.service;
 
 import java.util.Set;
 
@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import io.jeidiiy.outflearn.security.login.ajax.exception.EmailNotFoundException;
+import io.jeidiiy.outflearn.security.login.ajax.domain.LoginUser;
 import io.jeidiiy.outflearn.user.domain.User;
 import io.jeidiiy.outflearn.user.service.port.UserRepository;
 import lombok.RequiredArgsConstructor;

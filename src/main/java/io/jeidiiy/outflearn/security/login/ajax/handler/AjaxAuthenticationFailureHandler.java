@@ -1,4 +1,4 @@
-package io.jeidiiy.outflearn.security.login.ajax;
+package io.jeidiiy.outflearn.security.login.ajax.handler;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jeidiiy.outflearn.security.login.ajax.domain.AjaxLoginFailureDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
