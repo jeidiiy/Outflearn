@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.jeidiiy.outflearn.common.exception.EmailDuplicateException;
 import io.jeidiiy.outflearn.common.service.port.UuidHolder;
 import io.jeidiiy.outflearn.user.controller.port.UserService;
 import io.jeidiiy.outflearn.user.domain.User;
@@ -24,10 +25,18 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 
 	public User create(UserCreate userCreate) {
+		checkEmailIsDuplicated(userCreate);
+
 		User user = User.from(userCreate, uuidHolder, passwordEncoder);
 		user = userRepository.save(user);
 		verificationService.send(userCreate.getEmail(), user.getId(), user.getVerificationCode());
 		return user;
+	}
+
+	private void checkEmailIsDuplicated(UserCreate userCreate) {
+		if (userRepository.findByEmail(userCreate.getEmail()).isPresent()) {
+			throw new EmailDuplicateException();
+		}
 	}
 
 	@Transactional(readOnly = true)

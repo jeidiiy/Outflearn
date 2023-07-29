@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.jeidiiy.outflearn.common.exception.EmailDuplicateException;
 import io.jeidiiy.outflearn.common.exception.VerificationCodeNotMatchedException;
 import io.jeidiiy.outflearn.mock.FakeMailSender;
 import io.jeidiiy.outflearn.mock.FakeUserRepository;
@@ -29,16 +30,16 @@ class UserServiceImplTest {
 			.build();
 		fakeUserRepository.save(User.builder()
 			.id(1L)
-			.email("kok202@naver.com")
-			.nickname("kok202")
+			.email("tooth@gmail.com")
+			.nickname("test")
 			.verificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
 			.status(UserStatus.ACTIVE)
 			.lastLoginAt(0L)
 			.build());
 		fakeUserRepository.save(User.builder()
 			.id(2L)
-			.email("kok303@naver.com")
-			.nickname("kok303")
+			.email("toast@gmail.com")
+			.nickname("toast")
 			.verificationCode("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab")
 			.status(UserStatus.PENDING)
 			.lastLoginAt(0L)
@@ -70,5 +71,18 @@ class UserServiceImplTest {
 		assertThatThrownBy(() -> {
 			userService.verifyEmail(2L, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac");
 		}).isInstanceOf(VerificationCodeNotMatchedException.class);
+	}
+
+	@Test
+	void 같은_이메일로_회원가입하면_예외를_던진다() {
+		// given
+		UserCreate userCreate = UserCreate.builder()
+			.email("toast@gmail.com")
+			.build();
+
+		// when
+		// then
+		assertThatThrownBy(() -> userService.create(userCreate))
+			.isInstanceOf(EmailDuplicateException.class);
 	}
 }
