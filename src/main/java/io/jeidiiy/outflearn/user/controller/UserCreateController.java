@@ -14,11 +14,13 @@ import io.jeidiiy.outflearn.user.controller.port.UserService;
 import io.jeidiiy.outflearn.user.controller.response.UserResponse;
 import io.jeidiiy.outflearn.user.domain.User;
 import io.jeidiiy.outflearn.user.domain.UserCreate;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(USER)
 @RequiredArgsConstructor
+@Builder
 public class UserCreateController {
 
 	private final UserService userService;

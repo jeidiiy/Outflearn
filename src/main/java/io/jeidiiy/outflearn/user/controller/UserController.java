@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.jeidiiy.outflearn.user.controller.port.UserService;
 import io.jeidiiy.outflearn.user.controller.response.UserResponse;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(USER)
+@Builder
 public class UserController {
 
 	private final UserService userService;
