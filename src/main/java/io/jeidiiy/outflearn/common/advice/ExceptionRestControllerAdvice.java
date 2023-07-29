@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.jeidiiy.outflearn.common.exception.EmailDuplicateException;
 import io.jeidiiy.outflearn.common.exception.ResourceNotFoundException;
 import io.jeidiiy.outflearn.common.exception.VerificationCodeNotMatchedException;
 
@@ -31,6 +32,13 @@ public class ExceptionRestControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(VerificationCodeNotMatchedException.class)
 	public String verificationCodeNotMatchedException(VerificationCodeNotMatchedException exception) {
+		return exception.getMessage();
+	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(EmailDuplicateException.class)
+	public String duplicateEmail(EmailDuplicateException exception) {
 		return exception.getMessage();
 	}
 
