@@ -25,6 +25,7 @@ public class TestContainer {
 			.uuidHolder(uuidHolder)
 			.userRepository(this.userRepository)
 			.verificationService(this.verificationService)
+			.passwordEncoder(new TestPasswordEncoder())
 			.build();
 		this.userController = UserController.builder()
 			.userService(userService)
