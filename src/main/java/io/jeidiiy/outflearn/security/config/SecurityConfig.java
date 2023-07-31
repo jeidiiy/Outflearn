@@ -45,6 +45,12 @@ public class SecurityConfig {
 				(request, response, authentication) -> response.setStatus(HttpStatus.NO_CONTENT.value())
 			);
 		});
+		
+		http
+			.securityContext(
+				securityContext ->
+					securityContext.requireExplicitSave(false)
+			);
 
 		return http.build();
 	}
