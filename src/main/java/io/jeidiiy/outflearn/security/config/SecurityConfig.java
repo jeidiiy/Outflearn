@@ -33,6 +33,12 @@ public class SecurityConfig {
 
 		http.apply(ajaxLoginConfigurer());
 
+		http
+			.securityContext(
+				securityContext ->
+					securityContext.requireExplicitSave(false)
+			);
+
 		return http.build();
 	}
 
