@@ -3,8 +3,6 @@ package io.jeidiiy.outflearn.security.config;
 import static io.jeidiiy.outflearn.api.Endpoint.Api.*;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.*;
 
-import java.nio.charset.StandardCharsets;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,8 +22,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jeidiiy.outflearn.common.error.AuthErrorCode;
+import io.jeidiiy.outflearn.common.error.ErrorCode;
+import io.jeidiiy.outflearn.common.error.ErrorResponse;
 import io.jeidiiy.outflearn.security.login.ajax.configure.AjaxLoginConfigurer;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -96,23 +96,33 @@ public class SecurityConfig {
 
 	public AuthenticationEntryPoint authenticationEntryPoint() {
 		return (request, response, authException) -> {
-			log.trace("인증실패");
-			AuthenticationFailureDto authenticationFailureDto = AuthenticationFailureDto.create();
-			response.setStatus(HttpStatus.UNAUTHORIZED.value());
-			response.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
-			response.setContentType(String.valueOf(MediaType.APPLICATION_JSON));
-			objectMapper.writeValue(response.getWriter(), authenticationFailureDto);
+			log.warn("Failed Authentication");
+
+			AuthErrorCode errorCode = AuthErrorCode.UNAUTHENTICATED;
+
+			ErrorResponse responseEntity = makeErrorResponse(errorCode,
+				authException.getMessage());
+
+			response.setStatus(errorCode.getHttpStatus().value());
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+			objectMapper.writeValue(response.getWriter(), responseEntity);
 		};
 	}
 
 	public AccessDeniedHandler accessDeniedHandler() {
 		return (request, response, accessDeniedException) -> {
-			log.trace("인가실패");
-			AuthorizationFailureDto authorizationFailureDto = AuthorizationFailureDto.create();
-			response.setStatus(HttpStatus.NOT_FOUND.value());
-			response.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
-			response.setContentType(String.valueOf(MediaType.APPLICATION_JSON));
-			objectMapper.writeValue(response.getWriter(), authorizationFailureDto);
+			log.warn("Failed Authorization");
+
+			AuthErrorCode errorCode = AuthErrorCode.UNAUTHORIZED;
+
+			ErrorResponse errorResponse = makeErrorResponse(errorCode,
+				accessDeniedException.getMessage());
+
+			response.setStatus(errorCode.getHttpStatus().value());
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+			objectMapper.writeValue(response.getWriter(), errorResponse);
 		};
 	}
 
@@ -133,21 +143,10 @@ public class SecurityConfig {
 		return source;
 	}
 
-	@Getter
-	static class AuthenticationFailureDto {
-		private final String message = "로그인 후 이용해 주세요.";
-
-		public static AuthenticationFailureDto create() {
-			return new AuthenticationFailureDto();
-		}
-	}
-
-	@Getter
-	static class AuthorizationFailureDto {
-		private final String message = "권한이 없습니다.";
-
-		public static AuthorizationFailureDto create() {
-			return new AuthorizationFailureDto();
-		}
+	private ErrorResponse makeErrorResponse(ErrorCode errorCode, String message) {
+		return ErrorResponse.builder()
+			.code(errorCode.name())
+			.message(message)
+			.build();
 	}
 }
