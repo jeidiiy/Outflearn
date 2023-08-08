@@ -15,11 +15,13 @@ import io.jeidiiy.outflearn.course.controller.port.CourseService;
 import io.jeidiiy.outflearn.course.controller.response.CourseCreateResponse;
 import io.jeidiiy.outflearn.course.domain.CourseCreate;
 import io.jeidiiy.outflearn.security.login.ajax.domain.LoginUser;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(COURSE)
 @RequiredArgsConstructor
+@Builder
 public class CourseCreateController {
 
 	private final CourseService courseService;

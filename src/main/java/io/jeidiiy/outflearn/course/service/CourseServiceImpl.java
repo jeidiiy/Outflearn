@@ -9,11 +9,13 @@ import io.jeidiiy.outflearn.course.domain.CourseCreate;
 import io.jeidiiy.outflearn.course.service.port.CourseRepository;
 import io.jeidiiy.outflearn.user.domain.User;
 import io.jeidiiy.outflearn.user.service.port.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Builder
 public class CourseServiceImpl implements CourseService {
 
 	private final CourseRepository courseRepository;
