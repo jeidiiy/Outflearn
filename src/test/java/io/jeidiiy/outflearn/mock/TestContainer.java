@@ -1,6 +1,10 @@
 package io.jeidiiy.outflearn.mock;
 
 import io.jeidiiy.outflearn.common.service.port.UuidHolder;
+import io.jeidiiy.outflearn.course.controller.CourseCreateController;
+import io.jeidiiy.outflearn.course.controller.port.CourseService;
+import io.jeidiiy.outflearn.course.service.CourseServiceImpl;
+import io.jeidiiy.outflearn.course.service.port.CourseRepository;
 import io.jeidiiy.outflearn.user.controller.UserController;
 import io.jeidiiy.outflearn.user.controller.UserCreateController;
 import io.jeidiiy.outflearn.user.service.UserServiceImpl;
@@ -15,6 +19,9 @@ public class TestContainer {
 	public final VerificationService verificationService;
 	public final UserController userController;
 	public final UserCreateController userCreateController;
+	public final CourseRepository courseRepository;
+	public final CourseService courseService;
+	public final CourseCreateController courseCreateController;
 
 	@Builder
 	public TestContainer(UuidHolder uuidHolder) {
@@ -32,6 +39,14 @@ public class TestContainer {
 			.build();
 		this.userCreateController = UserCreateController.builder()
 			.userService(userService)
+			.build();
+		this.courseRepository = new FakeCourseRepository();
+		this.courseService = CourseServiceImpl.builder()
+			.courseRepository(courseRepository)
+			.userRepository(userRepository)
+			.build();
+		this.courseCreateController = CourseCreateController.builder()
+			.courseService(courseService)
 			.build();
 	}
 }
