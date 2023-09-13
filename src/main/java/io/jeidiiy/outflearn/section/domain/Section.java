@@ -36,4 +36,11 @@ public class Section {
 		this.title = title;
 		this.course = course;
 	}
+
+	public static Section from(SectionCreate sectionCreate, Course course) {
+		return Section.builder()
+			.title(sectionCreate.getTitle())
+			.course(course)
+			.build();
+	}
 }
