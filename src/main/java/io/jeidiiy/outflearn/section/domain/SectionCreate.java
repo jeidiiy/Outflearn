@@ -1,6 +1,7 @@
 package io.jeidiiy.outflearn.section.domain;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SectionCreate {
-	@NotEmpty
+	@NotNull
 	private Long courseId;
 	@NotEmpty
 	private String title;
