@@ -4,4 +4,6 @@ import io.jeidiiy.outflearn.course.domain.Course;
 
 public interface CourseRepository {
 	Course save(Course course);
+
+	Course findById(Long id);
 }

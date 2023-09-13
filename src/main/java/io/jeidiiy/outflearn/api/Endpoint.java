@@ -7,5 +7,6 @@ public class Endpoint {
 		public static final String LOGIN_WITH_EMAIL = "/api/login/email";
 		public static final String LOGOUT = "/api/logout";
 		public static final String COURSE = "/api/courses";
+		public static final String SECTION = "/api/sections";
 	}
 }
