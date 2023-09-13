@@ -21,6 +21,11 @@ public class SectionServiceImpl implements SectionService {
 	private final CourseRepository courseRepository;
 
 	@Override
+	public Section findById(Long id) {
+		return sectionRepository.findById(id);
+	}
+
+	@Override
 	public Long create(SectionCreate sectionCreate) {
 		Course course = courseRepository.findById(sectionCreate.getCourseId());
 		Section section = sectionRepository.create(Section.from(sectionCreate, course));
