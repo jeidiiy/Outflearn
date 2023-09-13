@@ -4,4 +4,6 @@ import io.jeidiiy.outflearn.section.domain.Section;
 
 public interface SectionRepository {
 	Section create(Section section);
+
+	Section findById(Long id);
 }
